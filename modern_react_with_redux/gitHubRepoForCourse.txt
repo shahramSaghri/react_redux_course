@@ -1,0 +1,2 @@
+gitHub repo for the course:
+https://github.com/StephenGrider/redux-code.git
