@@ -1,43 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import faker from 'faker';
+import CommentDetail from './CommentDetail';
+import ApprovalCard from './ApprovalCard';
 
 //Create a new compenent named App
 
 const App = () => {
     return  (
         <div className="ui container comments">
-           
-
-            <div className="comment">
-                <a href="/" className="avatar">
-                    <img alt="avatar" src={faker.image.avatar()}/>
-                </a>
-                <div className="content">
-                    <a href="/" className="author">
-                        Sam
-                    </a>
-                    <div className="metadata">
-                        <span className="date">Today at 6:00PM</span>
-                    </div>
-                    <div className="text">Nice blog post!</div>
-                </div>
-            </div>
-
-            <div className="comment">
-                <a href="/" className="avatar">
-                    <img alt="avatar" src={faker.image.avatar()}/>
-                </a>
-                <div className="content">
-                    <a href="/" className="author">
-                        Sam
-                    </a>
-                    <div className="metadata">
-                        <span className="date">Today at 6:00PM</span>
-                    </div>
-                    <div className="text">Nice blog post!</div>
-                </div>
-            </div>
+           <ApprovalCard>
+                <CommentDetail 
+                    author="Sam" 
+                    timeAgo="Today at 4:45PM" 
+                    avatar={faker.image.avatar()}
+                    content="Nice Blog post!" 
+                />
+           </ApprovalCard>
+           <CommentDetail 
+                author="Alex" 
+                timeAgo="Today at 2:00AM" 
+                avatar={faker.image.avatar()}
+                content="where are you?" 
+            />
+           <CommentDetail 
+                author="Jane" 
+                timeAgo="Yesterday at 5:00PM" 
+                avatar={faker.image.avatar()}
+                content="Have fun!!!" 
+            />             
             
         </div>
     );
