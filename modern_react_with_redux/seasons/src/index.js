@@ -1,28 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-/*
-const App = () => {
-    
-    window.navigator.geolocation.getCurrentPosition(
-        (postion) => console.log(postion), //Success callback
-        (err) => console.log(err) //failure callback
-        ); 
-        return <div>Latitude:   </div>
-};
-*/  
 
-class App extends React.Component {
-    
-    constructor( ) {
 
-    }
-    
-    
-    
-    //React says we have to define render!!
-    render() {
-        /**
+/**
      * To make a call to the geolocation API and access the
      * current location of the user we need to call the 
      * getCurrentPosition() method via the navigator.geolocation 
@@ -44,16 +25,85 @@ class App extends React.Component {
      * position of the user.
      * 
      */
+
+/*
+const App = () => {
+    
     window.navigator.geolocation.getCurrentPosition(
-        /**
-         * The follwoing position object contains information
-         * about the user location such as, latitude, altitude
-         * timestamp and etc.
-         */
         (postion) => console.log(postion), //Success callback
         (err) => console.log(err) //failure callback
         ); 
-        return <div>Latitude: </div>
+        return <div>Latitude:   </div>
+};
+*/  
+
+class App extends React.Component {
+    
+    constructor(props) {
+        /**
+         * The App component is borrwoing functionality
+         * from React.Component class which it extends.
+         * The React.Component has a constructor of its
+         * own that has some amount of setup or some code
+         * inside of it to set up our real component for us
+         * when we define a constructor function inside
+         * of our App class we are essentially overriding
+         * the constructor function that is inside fo the
+         * React.Component class. But we still want to make
+         * sure that all the codes inside the React.Component's
+         * constructor is called. So to make sure the parent's
+         * constructor is called we call the super method with
+         * props. Super is a refrence to parants constuructor 
+         * function
+         */
+        super(props);
+
+        //initializing the state object
+        //THIS IS THE ONLY TIME THAT WE DO DIRECT ASSIGNMENT
+        //OF THE STATE
+        this.state = {
+            lat: null, 
+            errorMessage: ''
+        };
+
+        window.navigator.geolocation.getCurrentPosition(
+            /**
+             * The follwoing position object contains information
+             * about the user location such as, latitude, altitude
+             * timestamp and etc.
+             */
+            (position) => {
+                //to update our state we called setState() !!!
+                this.setState({ lat: position.coords.latitude }); 
+            }, //Success callback
+            
+            /**
+             * Here and in this case the proper way of
+             * handeling any possible error that can be
+             * not getting the users location is to 
+             * let the user an error has occured and then
+             * try to get the state again and rerender
+             * that can be done with using setState()
+             * such that
+             */
+            (err) => {
+                this.setState({ errorMessage: err.message });
+            } //failure callback
+        );
+    }
+    
+    
+    
+    //React says we have to define render!!
+    render() {
+     
+        return (
+            <div>
+                Latitude: {this.state.lat}
+                <br />
+                Error: {this.errorMessage} 
+            </div>
+        );
     }
 }
 
