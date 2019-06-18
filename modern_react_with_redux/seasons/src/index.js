@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SeasonDisply from './SeasonDisply'
 
 
 
@@ -65,7 +66,21 @@ class App extends React.Component {
             lat: null, 
             errorMessage: ''
         };
-
+    }
+/*
+    //you can alternatively use the following method
+    //for initializing your states
+    state = {
+        lat: null,
+        errorMessage: ''
+    }
+    what happens is that bable translate your above state
+    object and builds the exact same constructor you have 
+    above.
+*/
+ 
+    componentDidMount() {
+        console.log('My component was rendered to the screen');
         window.navigator.geolocation.getCurrentPosition(
             /**
              * The follwoing position object contains information
@@ -91,19 +106,37 @@ class App extends React.Component {
             } //failure callback
         );
     }
+
+    componentDidUpdate() {
+        console.log('My Component was just updated -it rerendered!');
+        
+    }
+
     
     
     
     //React says we have to define render!!
     render() {
-     
-        return (
-            <div>
-                Latitude: {this.state.lat}
-                <br />
-                Error: {this.errorMessage} 
-            </div>
-        );
+        //The follwoing is the instance of conditional
+        //rendering
+        if (this.state.errorMessage && !this.state.lat){
+            return <dive>Error: {this.state.errorMessage}</dive>
+        }
+        
+        if (!this.state.errorMessage && this.state.lat) {
+            //instead just rendering the Latitude we want
+            //to use the latitude to derermine the season that 
+            //of the hemisphier that the user is in
+            //return <div>Latitude: {this.state.lat}</div>
+
+            //So we are taking a property from the state
+            //of the App component and passing it as props down
+            //into the SeasonDisplay
+            return <SeasonDisply latitude={this.state.lat}/>
+        }
+
+        return <div>Loading!</div>
+        
     }
 }
 
