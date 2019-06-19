@@ -1,4 +1,20 @@
+import './SeasonDisply.css';
 import React from 'react';
+
+
+//The config object tells us what
+//text and what icon name we should use
+//if the season is summer or it's winter
+const seasonConfig = {
+    summer: {
+        text: "Let's hit the beach!",
+        iconName: 'sun'
+    },
+    winter: {
+        text: 'Burr, it is cold!',
+        iconName: 'snowflake'
+    }
+};
 
 
 //The following function determines what is the current
@@ -14,15 +30,21 @@ const getSeason = (currentLat, currentMonth) => {
 
 const SeasonDisply = (props) => {
     const season = getSeason(props.latitude, new Date().getMonth());
-    const text = season === 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach';
-    const icon = season === 'winter' ? 'snowflake' : 'sun';
+
+    //The following will return a single element of
+    //the seasonConfig object based on the specified season
+    //in the square braket
+    const { text, iconName } = seasonConfig[season]
     return (
-        <div>
-            <i className={`${icon} icon`} />
+        // as best practice it's better to give the 
+        //root tag of each jsx same name as the component
+        //name like so. 
+        <div className={`season-display ${season}`}>
+            <i className={`icon-left massive ${iconName} icon`} />
             <h1>
                 {text}
             </h1>
-            <i className={`${icon} icon`} />
+            <i className={`icon-right massive ${iconName} icon`} />
         </div>
     );
     

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisply from './SeasonDisply'
+import Spinner from './Spinner';
 
 
 
@@ -9,24 +10,22 @@ import SeasonDisply from './SeasonDisply'
      * current location of the user we need to call the 
      * getCurrentPosition() method via the navigator.geolocation 
      * object that is stored in window object of the browser.
-     * (window object is not nodejs object). 
-     * The first argument of getCurrentPosiotion() function is a
+     * (window object is not a nodejs object). 
+     * The first argument of getCurrentPosiotion() method is a
      * callback function that gets called anytime the current
-     * physical location of the client is successfully returned.
-     * ;therefore, the first callback function is frequently
+     * physical location of the client is successfully returned.;therefore, 
+     * the first callback function is frequently
      * referred to as success callback.
      * The second argument; though, is frequently referred to
      * as failure callback, since it gets called if the 
-     * getCurrentPosition() function is unanle to determine
+     * getCurrentPosition() method is unable to determine
      * the users current location.
      * You can find more information about this function
      * at Geolocation API documentaion @ developer.mozilla.org
      * This function will not immediately return the user's 
      * current location, it takes a few seconds to find the
      * position of the user.
-     * 
      */
-
 /*
 const App = () => {
     
@@ -46,10 +45,9 @@ class App extends React.Component {
          * from React.Component class which it extends.
          * The React.Component has a constructor of its
          * own that has some amount of setup or some code
-         * inside of it to set up our real component for us
-         * when we define a constructor function inside
+         * inside of it. When we define a constructor method inside
          * of our App class we are essentially overriding
-         * the constructor function that is inside fo the
+         * the constructor method of the
          * React.Component class. But we still want to make
          * sure that all the codes inside the React.Component's
          * constructor is called. So to make sure the parent's
@@ -68,8 +66,8 @@ class App extends React.Component {
         };
     }
 /*
-    //you can alternatively use the following method
-    //for initializing your states
+    //you can alternatively initialize the state object without using
+    //the constructor such that:
     state = {
         lat: null,
         errorMessage: ''
@@ -96,9 +94,9 @@ class App extends React.Component {
              * Here and in this case the proper way of
              * handeling any possible error that can be
              * not getting the users location is to 
-             * let the user an error has occured and then
-             * try to get the state again and rerender
-             * that can be done with using setState()
+             * let the user know that an error has occured and then
+             * try to get the state again. Rerendering
+             * the message also can be done using setState()
              * such that
              */
             (err) => {
@@ -120,12 +118,12 @@ class App extends React.Component {
         //The follwoing is the instance of conditional
         //rendering
         if (this.state.errorMessage && !this.state.lat){
-            return <dive>Error: {this.state.errorMessage}</dive>
+            return <div>Error: {this.state.errorMessage}</div>
         }
         
         if (!this.state.errorMessage && this.state.lat) {
             //instead just rendering the Latitude we want
-            //to use the latitude to derermine the season that 
+            //to use the latitude to derermine the season 
             //of the hemisphier that the user is in
             //return <div>Latitude: {this.state.lat}</div>
 
@@ -135,8 +133,7 @@ class App extends React.Component {
             return <SeasonDisply latitude={this.state.lat}/>
         }
 
-        return <div>Loading!</div>
-        
+        return <Spinner message="Please accept location request" />
     }
 }
 
